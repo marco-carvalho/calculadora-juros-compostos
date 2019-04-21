@@ -79,7 +79,7 @@ export default {
       posicoes.push({
         data: new Date(),
         saldoParcial: this.valorInicial,
-        aporteMensal: 0,
+        aporteMensal: this.aporteMensal,
         aporteAnual: 0,
       });
       for(let i = 0; i <= this.prazo; i++) {
@@ -87,7 +87,7 @@ export default {
         const posicao = {};
         posicao.data = this.$moment(data).add(1, "M").toDate();
         posicao.saldoParcial = (saldoParcial + aporteMensal + aporteAnual) * (1+this.rendimento/100);
-        posicao.aporteMensal = this.aporteMensal * (this.$moment(data).year() === this.$moment(posicao.data).year() ? 1 : (1+this.correcaoAporteMensal/100));
+        posicao.aporteMensal = aporteMensal * (this.$moment(data).year() === this.$moment(posicao.data).year() ? 1 : (1+this.correcaoAporteMensal/100));
         posicao.aporteAnual = this.$moment(posicao.data).month() === this.mesAporteAnual-1 ? this.aporteAnual : 0;
         posicoes.push(posicao);
       }
