@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - 'node'
+script:
+  - npm run build
+cache:
+  directories:
+    - "node_modules"
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_API_KEY  # Set in the settings page of your repository, as a secure variable
+  local_dir: dist
+  on:
+    branch: master
