@@ -33,10 +33,10 @@
   .row
     .col-lg.mb-3
       label.font-weight-bold Prazo (em meses):
-      input.form-control(v-model.number="prazo" type="number" placeholder="ex: 108")
+      input.form-control(v-model.number="prazoMensal" @input="prazoAnual = ($event.target.value/12).toFixed(2)" type="number" placeholder="ex: 108")
     .col-lg.mb-3
       label.font-weight-bold Prazo (em anos):
-      input.form-control(@input="prazo = ($event.target.value*12).toFixed(0)" type="number" placeholder="ex: 9")
+      input.form-control(v-model.number="prazoAnual" @input="prazoMensal = ($event.target.value*12).toFixed(0)" type="number" placeholder="ex: 9")
   button.btn.btn-success.btn-block.btn-sm.mb-3(@click="getPosicoes")
     .font-weight-bold Calcular
   .table-responsive(v-if="posicoes ? posicoes.length : posicoes")
@@ -71,7 +71,8 @@ export default {
       correcaoAnualAporteAnual: 0.1,
       rendimentoMensal: 0.004867550565343048,
       rendimentoAnual: 0.06,
-      prazo: 2*12,
+      prazoMensal: 2*12,
+      prazoAnual: 2,
     }
   },
   methods: {
@@ -89,7 +90,7 @@ export default {
         aporteMensal: this.aporteMensal,
         aporteAnual: 0,
       });
-      for(let i = 0; i <= this.prazo; i++) {
+      for(let i = 0; i <= this.prazoMensal; i++) {
         const {data, saldoParcial, aporteMensal, aporteAnual} = posicoes[i];
         const posicao = {};
         posicao.data = this.$moment(data).add(1, "M").toDate();
