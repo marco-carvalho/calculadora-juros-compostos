@@ -4,41 +4,41 @@
   hr
   .mb-3
     label.font-weight-bold Valor Inicial (em R$):
-    input.form-control(v-model.number="valorInicial" type="number" placeholder="ex: 15000" min="1")
+    input.form-control(v-model.number="valorInicial" type="number" placeholder="ex: 15000")
   .row
     .col-lg-8.mb-3
       label.font-weight-bold Aporte Mensal (em R$):
-      input.form-control(v-model.number="aporteMensal" type="number" placeholder="ex: 2200" min="1")
+      input.form-control(v-model.number="aporteMensal" type="number" placeholder="ex: 2200")
     .col-lg-4.mb-3
       label.font-weight-bold Correção Anual do Aporte Mensal (em %):
-      input.form-control(v-model.number="correcaoAporteMensal" type="number" placeholder="ex: 10" min="1")
+      input.form-control(v-model.number="correcaoAnualAporteMensal" type="number" placeholder="ex: 0.1")
   .row
     .col-lg-4.mb-3
       label.font-weight-bold Aporte Anual (em R$):
-      input.form-control(v-model.number="aporteAnual" type="number" placeholder="ex: 100000" min="1")
+      input.form-control(v-model.number="aporteAnual" type="number" placeholder="ex: 100000")
     .col-lg-4.mb-3
       label.font-weight-bold Mês do Aporte Anual:
-      input.form-control(v-model.number="mesAporteAnual" type="number" min="1" max="12")
+      input.form-control(v-model.number="mesAporteAnual" type="number" placeholder="ex: 2" min="1" max="12")
     .col-lg-4.mb-3
       label.font-weight-bold Correção Anual do Aporte Anual (em %):
-      input.form-control(v-model.number="correcaoAporteAnual" type="number" placeholder="ex: 10" min="1" disabled)
+      input.form-control(v-model.number="correcaoAnualAporteAnual" type="number" placeholder="ex: 0.1" disabled)
   .row
     .col-lg.mb-3
       label.font-weight-bold Rendimento (mensal em %):
-      input.form-control(v-model.number="rendimento" type="number" placeholder="ex: 0.5" min="1")
+      input.form-control(v-model.number="rendimentoMensal" @input="rendimentoAnual = Math.pow(1+Number($event.target.value), 12)-1"  type="number" placeholder="ex: 0.005")
     .col-lg.mb-3
       label.font-weight-bold Rendimento (anual em %):
-      input.form-control(@keyup="rendimento = ($event.target.value/12)" type="number" placeholder="ex: 6" min="1")
+      input.form-control(v-model.number="rendimentoAnual" @input="rendimentoMensal = Math.pow(1+Number($event.target.value), 1/12)-1" type="number" placeholder="ex: 0.06")
   .row
     .col-lg.mb-3
       label.font-weight-bold Prazo (em meses):
-      input.form-control(v-model.number="prazo" type="number" placeholder="ex: 108" min="1")
+      input.form-control(v-model.number="prazo" type="number" placeholder="ex: 108")
     .col-lg.mb-3
       label.font-weight-bold Prazo (em anos):
-      input.form-control(@keyup="prazo = ($event.target.value*12).toFixed(0)" type="number" placeholder="ex: 9" min="1")
-  button.btn.btn-success.btn-block.btn-sm.mb-3 
-    .font-weight-bold(@click="getPosicoes") Calcular
-  .table-responsive
+      input.form-control(@input="prazo = ($event.target.value*12).toFixed(0)" type="number" placeholder="ex: 9")
+  button.btn.btn-success.btn-block.btn-sm.mb-3(@click="getPosicoes")
+    .font-weight-bold Calcular
+  .table-responsive(v-if="posicoes ? posicoes.length : posicoes")
     table.table.table-sm.table-hover.table-striped
       thead
         th.text-center Mês
