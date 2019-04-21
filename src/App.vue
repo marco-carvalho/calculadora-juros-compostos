@@ -18,7 +18,8 @@
       input.form-control(v-model.number="aporteAnual" type="number" placeholder="ex: 100000")
     .col-lg-4.mb-3
       label.font-weight-bold Mês do Aporte Anual:
-      input.form-control(v-model.number="mesAporteAnual" type="number" placeholder="ex: 2" min="1" max="12")
+      select.form-control(v-model.number="mesAporteAnual")
+        option(v-for="(i, index) in Array.apply(0, Array(12)).map((_,i) => $moment().month(i).format('MMMM'))" :value="index") {{i}}
     .col-lg-4.mb-3
       label.font-weight-bold Correção Anual do Aporte Anual:
       input.form-control(v-model.number="correcaoAnualAporteAnual" type="number" placeholder="ex: 0.1" disabled)
@@ -97,7 +98,7 @@ export default {
           ? 1 
           : (1+this.correcaoAnualAporteMensal)
         );
-        posicao.aporteAnual = this.$moment(posicao.data).month()+1 === this.mesAporteAnual
+        posicao.aporteAnual = this.$moment(posicao.data).month() === this.mesAporteAnual
           ? this.aporteAnual 
           : 0.00;
         posicoes.push(posicao);
