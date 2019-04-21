@@ -43,11 +43,9 @@ export default {
     return {
       valorInicial: 15000,
       aporteMensal: 2200,
-      correcaoAporteMensal: 10,
       aporteAnual: 50000,
       mesAporteAnual: 2,
-      correcaoAporteAnual: 10,
-      rendimento: 0.5,
+      taxaMensal: 0.5,
       prazo: 2*12,
     }
   },
@@ -58,18 +56,19 @@ export default {
     getPosicoes() {
       const posicoes = [];
       posicoes.push({
-        mes: this.$moment().format('MM/YY'),
+        data: new Date(),
         saldoParcial: this.valorInicial,
         aporteMensal: 0,
         aporteAnual: 0,
       });
-      for(let mes = this.$moment().add(1, 'months'); mes <= this.$moment().add(this.prazo, 'months'); mes.add(1, 'months')) {
-        posicoes.push({
-          mes: mes.format('MM/YY'),
-          saldoParcial: (posicoes[posicoes.length-1].saldoParcial + posicoes[posicoes.length-1].aporteMensal + posicoes[posicoes.length-1].aporteAnual)  * (1+(this.taxaMensal/100)),
-          aporteMensal: this.aporteMensal,
-          aporteAnual: mes.format("M") == this.mesAporteAnual && mes.format("Y") != this.$moment().format("Y") ? this.aporteAnual : 0,
-        })
+      for(let i = 0; i <= this.prazo; i++) {
+        const {data, saldoParcial, aporteMensal, aporteAnual} = posicoes[i];
+        const posicao = {};
+        posicao.data = this.$moment(data).add(1, "M").toDate();
+        posicao.saldoParcial = (saldoParcial + aporteMensal + aporteAnual) * (1+this.rendimento/100);
+        posicao.aporteMensal = this.aporteMensal * (this.$moment(data).year() === this.$moment(posicao.data).year() ? 1 : (1+this.correcaoAporteMensal/100));
+        posicao.aporteAnual = this.$moment(posicao.data).month() === this.mesAporteAnual-1 ? this.aporteAnual : 0;
+        posicoes.push(posicao);
       }
       return posicoes;
     }
