@@ -46,7 +46,7 @@ export default {
       aporteAnual: 50000,
       mesAporteAnual: 2,
       taxaMensal: 0.5,
-      prazo: 9*12,
+      prazo: 2*12,
     }
   },
   methods: {
