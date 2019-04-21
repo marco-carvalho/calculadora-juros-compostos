@@ -36,6 +36,8 @@
     .col-lg.mb-3
       label.font-weight-bold Prazo (em anos):
       input.form-control(@keyup="prazo = ($event.target.value*12).toFixed(0)" type="number" placeholder="ex: 9" min="1")
+  button.btn.btn-success.btn-block.btn-sm.mb-3 
+    .font-weight-bold(@click="getPosicoes") Calcular
   .table-responsive
     table.table.table-sm.table-hover.table-striped
       thead
@@ -45,7 +47,7 @@
         th.text-right Aporte Anual
         th.text-right Acumulado
       tbody
-        tr(v-for="(posicao, index) in getPosicoes()")
+        tr(v-for="(posicao, index) in posicoes")
           td.text-center {{$moment(posicao.data).format("MM/YY")}}
           td.text-right {{formatToCurrency(posicao.saldoParcial)}}
           td.text-right {{formatToCurrency(posicao.aporteMensal)}}
@@ -57,6 +59,7 @@
 export default {
   data() {
     return {
+      posicoes: [],
       valorInicial: 15000,
       aporteMensal: 2200,
       correcaoAporteMensal: 10,
@@ -88,7 +91,7 @@ export default {
         posicao.aporteAnual = this.$moment(posicao.data).month() === this.mesAporteAnual-1 ? this.aporteAnual : 0;
         posicoes.push(posicao);
       }
-      return posicoes;
+      this.posicoes = posicoes;
     }
   }
 }
