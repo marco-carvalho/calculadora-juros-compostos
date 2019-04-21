@@ -10,7 +10,7 @@
       label.font-weight-bold Aporte Mensal (em R$):
       input.form-control(v-model.number="aporteMensal" type="number" placeholder="ex: 2200")
     .col-lg-4.mb-3
-      label.font-weight-bold Correção Anual do Aporte Mensal (em %):
+      label.font-weight-bold Correção Anual do Aporte Mensal:
       input.form-control(v-model.number="correcaoAnualAporteMensal" type="number" placeholder="ex: 0.1")
   .row
     .col-lg-4.mb-3
@@ -20,14 +20,14 @@
       label.font-weight-bold Mês do Aporte Anual:
       input.form-control(v-model.number="mesAporteAnual" type="number" placeholder="ex: 2" min="1" max="12")
     .col-lg-4.mb-3
-      label.font-weight-bold Correção Anual do Aporte Anual (em %):
+      label.font-weight-bold Correção Anual do Aporte Anual:
       input.form-control(v-model.number="correcaoAnualAporteAnual" type="number" placeholder="ex: 0.1" disabled)
   .row
     .col-lg.mb-3
-      label.font-weight-bold Rendimento (mensal em %):
+      label.font-weight-bold Rendimento (mensal):
       input.form-control(v-model.number="rendimentoMensal" @input="rendimentoAnual = Math.pow(1+Number($event.target.value), 12)-1"  type="number" placeholder="ex: 0.005")
     .col-lg.mb-3
-      label.font-weight-bold Rendimento (anual em %):
+      label.font-weight-bold Rendimento (anual):
       input.form-control(v-model.number="rendimentoAnual" @input="rendimentoMensal = Math.pow(1+Number($event.target.value), 1/12)-1" type="number" placeholder="ex: 0.06")
   .row
     .col-lg.mb-3
