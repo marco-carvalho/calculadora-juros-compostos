@@ -43,9 +43,11 @@ export default {
     return {
       valorInicial: 15000,
       aporteMensal: 2200,
+      correcaoAporteMensal: 10,
       aporteAnual: 50000,
       mesAporteAnual: 2,
-      taxaMensal: 0.5,
+      correcaoAporteAnual: 10,
+      rendimento: 0.5,
       prazo: 2*12,
     }
   },
