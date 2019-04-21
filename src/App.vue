@@ -50,7 +50,7 @@
         th.text-right Acumulado
       tbody
         tr(v-for="(posicao, index) in posicoes")
-          td.text-center {{$moment(posicao.data).format("MM/YY")}}
+          td.text-center {{$moment(posicao.data).format("MMM/YY")}}
           td.text-right {{posicoes[index-1] ? ((posicao.saldoParcial/posicoes[index-1].saldoParcial-1)*100).toFixed(4) + '%' : null}} 
           td.text-right {{formatToCurrency(posicao.saldoParcial)}}
           td.text-right {{formatToCurrency(posicao.aporteMensal)}}
