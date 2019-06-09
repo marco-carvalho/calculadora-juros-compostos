@@ -20,7 +20,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.2",
-    "lint-staged": "^8.1.5",
+    "lint-staged": "^8.2.0",
     "pug": "^2.0.3",
     "pug-plain-loader": "^1.0.0",
     "vue-template-compiler": "^2.6.10"
