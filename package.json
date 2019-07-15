@@ -21,7 +21,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.2",
     "lint-staged": "^8.2.0",
-    "pug": "^2.0.3",
+    "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",
     "vue-template-compiler": "^2.6.10"
   },
