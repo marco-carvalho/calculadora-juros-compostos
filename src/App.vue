@@ -8,21 +8,24 @@
       v-model.number="valorInicial"
       type="number"
       placeholder="ex: 15000"
+      step="1000"
     )
   .flex.-mx-2
-    .px-2.mb-4(class="w-2/3")
+    .px-2.mb-4(class="w-3/4")
       InputComponent(
         label="Aporte Mensal (em R$)"
         v-model.number="aporteMensal"
         type="number"
         placeholder="ex: 2200"
+        step="100"
       )
-    .px-2.mb-4(class="w-1/3")
+    .px-2.mb-4(class="w-1/4")
       InputComponent(
         label="Correção Anual do Aporte Mensal"
         v-model.number="correcaoAnualAporteMensal"
         type="number"
         placeholder="ex: 0.1"
+        step="0.1"
       )
   .flex.-mx-2
     .px-2.mb-4(class="w-1/4")
@@ -33,6 +36,7 @@
         input.mr-2(
           type="checkbox"
           v-model="aporteAnualHabilitado"
+          @click="posicoes = []"
         )
     .px-2.mb-4(class="w-1/4")
       InputComponent(
@@ -41,6 +45,7 @@
         type="number"
         placeholder="ex: 100000"
         :disabled="!aporteAnualHabilitado"
+        step="1000"
       )
     .px-2.mb-4(class="w-1/4")
       SelectComponent(
@@ -56,6 +61,7 @@
         type="number"
         placeholder="ex: 0.1"
         :disabled="!aporteAnualHabilitado"
+        step="0.1"
       )
   .flex.-mx-2
     .px-2.mb-4(class="w-1/2")
@@ -64,6 +70,7 @@
         v-model.number="rendimentoMensal"
         type="number"
         placeholder="ex: 0.005"
+        step="0.001"
         @input="rendimentoAnual = Math.pow(1+Number(rendimentoMensal), 12)-1"
       )
     .px-2.mb-4(class="w-1/2")
@@ -72,6 +79,7 @@
         v-model.number="rendimentoAnual"
         type="number"
         placeholder="ex: 0.06"
+        step="0.01"
         @input="rendimentoMensal = Math.pow(1+Number(rendimentoAnual), 1/12)-1"
       )
   .flex.-mx-2
@@ -102,7 +110,7 @@
         th.text-center Mês
         th.text-right Saldo Parcial
         th.text-right Aporte Mensal
-        th.text-right Aporte Anual
+        th.text-right(v-if="aporteAnualHabilitado") Aporte Anual
         th.text-right Acumulado
     tbody
       tr.border-b(
@@ -113,7 +121,7 @@
         td.text-center.lowercase {{$moment(posicao.data).format("MMM/YY")}}
         td.text-right {{formatToCurrency(posicao.saldoParcial)}}
         td.text-right {{formatToCurrency(posicao.aporteMensal)}}
-        td.text-right {{formatToCurrency(posicao.aporteAnual)}}
+        td.text-right(v-if="aporteAnualHabilitado") {{formatToCurrency(posicao.aporteAnual)}}
         td.text-right {{formatToCurrency(posicao.saldoParcial + posicao.aporteMensal + posicao.aporteAnual)}}
 </template>
 
@@ -125,16 +133,16 @@ export default {
   data() {
     return {
       posicoes: [],
-      valorInicial: 15000,
-      aporteMensal: 2200,
-      correcaoAnualAporteMensal: 0.1,
+      valorInicial: 46000,
+      aporteMensal: 4300,
+      correcaoAnualAporteMensal: 0.2,
       aporteAnual: 50000,
       mesAporteAnual: 2,
       correcaoAnualAporteAnual: 0.1,
-      rendimentoMensal: 0.004867550565343048,
-      rendimentoAnual: 0.06,
-      prazoMensal: 24,
-      prazoAnual: 2,
+      rendimentoMensal: 0.01,
+      rendimentoAnual: 0.12682503013196977,
+      prazoMensal: 36,
+      prazoAnual: 3,
       aporteAnualHabilitado: false,
     }
   },

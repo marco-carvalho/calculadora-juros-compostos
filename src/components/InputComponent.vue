@@ -9,6 +9,7 @@ div
     :disabled="disabled"
     :type="type"
     :placeholder="placeholder"
+    :step="step"
   )
 </template>
 
@@ -20,6 +21,7 @@ export default {
     disabled: Boolean,
     type: String,
     placeholder: String,
+    step: Number,
   }
 }
 </script>
