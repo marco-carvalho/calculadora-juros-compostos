@@ -1,0 +1,45 @@
+{
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:all"
+    ],
+    "rules": {
+      "linebreak-style": "off",
+      "sort-imports": "off",
+      "sort-keys": "off",
+      "id-length": "off",
+      "quote-props": "off",
+      "indent": ["error", 2],
+      "no-process-env": "off",
+      "object-property-newline": "off",
+      "object-curly-spacing": "off",
+      "max-len": "off",
+      "eol-last": "off",
+      "array-bracket-newline": "off",
+      "global-require": "off",
+      "padded-blocks": "off",
+      "space-before-function-paren": "off",
+      "array-element-newline": "off",
+      "no-alert": "off",
+      "comma-dangle": "off",
+      "arrow-body-style": "off",
+      "no-magic-numbers": "off",
+      "arrow-parens": "off",
+      "space-infix-ops": "off",
+      "semi": "off",
+      "max-lines-per-function": "off",
+      "function-call-argument-newline": "off",
+      "no-plusplus": "off",
+      "no-mixed-operators": "off",
+      "guard-for-in": "off",
+      "one-var": "off",
+      "newline-per-chained-call": "off"
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  }
