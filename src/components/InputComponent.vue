@@ -21,7 +21,7 @@ export default {
     disabled: Boolean,
     type: String,
     placeholder: String,
-    step: Number,
+    step: String,
   }
 }
 </script>

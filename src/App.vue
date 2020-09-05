@@ -99,15 +99,22 @@
         placeholder="ex: 9"
         @input="prazoMensal = (prazoAnual*12).toFixed(0)"
       )
-  button.mb-4.bg-green-500.w-full.rounded.p-1(
-    class="focus:outline-none hover:bg-green-600"
-    @click="getPosicoes"
-  )
-    .text-white.text-center.font-bold Calcular
+  .flex.-mx-2
+    .px-2.mb-4(class="w-1/2")
+      button.mb-4.bg-green-500.w-full.rounded.p-1(
+        class="focus:outline-none hover:bg-green-600"
+        @click="getPosicoes"
+      )
+        .text-white.text-center.font-bold Calcular em Tabela
+    .px-2.mb-4(class="w-1/2")
+      button.mb-4.bg-orange-500.w-full.rounded.p-1.opacity-50.cursor-not-allowed(
+        class="focus:outline-none"
+      )
+        .text-white.text-center.font-bold Calcular em Gráfico (em construção)
   table.table-auto.w-full(v-if="posicoes ? posicoes.length : posicoes")
     thead
       tr.border-b.border-black
-        th.text-center Mês
+        th.text-center Data
         th.text-right Saldo Parcial
         th.text-right Aporte Mensal
         th.text-right(v-if="aporteAnualHabilitado") Aporte Anual
@@ -122,7 +129,7 @@
         td.text-right {{formatToCurrency(posicao.saldoParcial)}}
         td.text-right {{formatToCurrency(posicao.aporteMensal)}}
         td.text-right(v-if="aporteAnualHabilitado") {{formatToCurrency(posicao.aporteAnual)}}
-        td.text-right {{formatToCurrency(posicao.saldoParcial + posicao.aporteMensal + posicao.aporteAnual)}}
+        td.text-right {{formatToCurrency(posicao.saldoParcial + posicao.aporteMensal + (posicao.aporteAnual || 0))}}
 </template>
 
 <script>
@@ -148,10 +155,10 @@ export default {
   },
   methods: {
     formatToCurrency(value) {
-      if(!value) {
-        return;
+      if (!value) {
+        return null;
       }
-      return value.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+      return value.toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
     },
     getPosicoes() {
       const posicoes = [];
@@ -161,18 +168,18 @@ export default {
         aporteMensal: this.aporteMensal,
         aporteAnual: 0,
       });
-      for(let i = 0; i <= this.prazoMensal; i++) {
+      for (let i = 0; i <= this.prazoMensal; i++) {
         const posicao = {};
-        const {data, saldoParcial, aporteMensal, aporteAnual} = posicoes[i];
-        posicao.data = this.$moment(data).add(1, "M").toDate();
-        posicao.saldoParcial = (saldoParcial + aporteMensal + aporteAnual) * (1+this.rendimentoMensal);
-        const newLocal = this.$moment(data).year() === this.$moment(posicao.data).year()
-          ? 1
-          : 1 + this.correcaoAnualAporteMensal;
-        posicao.aporteMensal = aporteMensal * newLocal;
-        posicao.aporteAnual = this.aporteAnualHabilitado && this.$moment(posicao.data).month() === this.mesAporteAnual
-          ? this.aporteAnual
-          : 0.00;
+        posicao.data = this.$moment(posicoes[i].data).add(1, "M").toDate();
+        posicao.saldoParcial = (posicoes[i].saldoParcial + posicoes[i].aporteMensal + (posicoes[i].aporteAnual || 0)) * (1+this.rendimentoMensal);
+        if (this.$moment(posicoes[i].data).year() === this.$moment(posicao.data).year()) {
+          posicao.aporteMensal = posicoes[i].aporteMensal;
+        } else {
+          posicao.aporteMensal = posicoes[i].aporteMensal * (1 + this.correcaoAnualAporteMensal);
+        }
+        if (this.aporteAnualHabilitado && this.$moment(posicao.data).month() === this.mesAporteAnual) {
+          posicao.aporteAnual = this.aporteAnual;
+        }
         posicoes.push(posicao);
       }
       this.posicoes = posicoes;

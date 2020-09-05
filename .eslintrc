@@ -37,7 +37,8 @@
       "no-mixed-operators": "off",
       "guard-for-in": "off",
       "one-var": "off",
-      "newline-per-chained-call": "off"
+      "newline-per-chained-call": "off",
+      "max-statements": "off"
     },
     "parserOptions": {
       "parser": "babel-eslint"
