@@ -11,7 +11,7 @@
     "core-js": "^3.6.5",
     "moment": "^2.27.0",
     "tailwindcss": "^1.8.4",
-    "vue": "^2.6.11"
+    "vue": "^2.6.12"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.4.6",
@@ -23,7 +23,7 @@
     "lint-staged": "^10.2.11",
     "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.12"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
