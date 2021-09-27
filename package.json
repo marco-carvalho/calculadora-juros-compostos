@@ -10,7 +10,7 @@
   "dependencies": {
     "core-js": "^3.18.0",
     "moment": "^2.29.1",
-    "tailwindcss": "^2.2.15",
+    "tailwindcss": "^2.2.16",
     "vue": "^2.6.14"
   },
   "devDependencies": {
