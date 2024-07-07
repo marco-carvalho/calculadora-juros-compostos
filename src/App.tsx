@@ -4,16 +4,16 @@ import SelectComponent from "./components/SelectComponent";
 import moment from "moment";
 
 const CalculadoraJurosCompostos: React.FC = () => {
-  const [valorInicial, setValorInicial] = useState<number>(1666000);
-  const [aporteMensal, setAporteMensal] = useState<number>(11000);
+  const [valorInicial, setValorInicial] = useState<number>(1000000);
+  const [aporteMensal, setAporteMensal] = useState<number>(10000);
   const [correcaoAnualAporteMensal, setCorrecaoAnualAporteMensal] = useState<number>(0.1);
   const [aporteAnual, setAporteAnual] = useState<number>(50000);
   const [mesAporteAnual, setMesAporteAnual] = useState<number>(2);
   const [correcaoAnualAporteAnual, setCorrecaoAnualAporteAnual] = useState<number>(0.1);
   const [rendimentoMensal, setRendimentoMensal] = useState<number>(0.01);
   const [rendimentoAnual, setRendimentoAnual] = useState<number>(0.12682503013196977);
-  const [prazoMensal, setPrazoMensal] = useState<number>(36);
-  const [prazoAnual, setPrazoAnual] = useState<number>(3);
+  const [prazoMensal, setPrazoMensal] = useState<number>(120);
+  const [prazoAnual, setPrazoAnual] = useState<number>(10);
   const [aporteAnualHabilitado, setAporteAnualHabilitado] = useState<boolean>(false);
   const [posicoes, setPosicoes] = useState<any[]>([]);
 
