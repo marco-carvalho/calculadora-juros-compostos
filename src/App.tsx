@@ -42,7 +42,7 @@ const CalculadoraJurosCompostos: React.FC = () => {
         posicao.aporteMensal = posicoes[i].aporteMensal * (1 + correcaoAnualAporteMensal);
       }
       if (aporteAnualHabilitado && moment(posicao.data).month() === mesAporteAnual) {
-        posicao.aporteAnual = aporteAnual;
+        posicao.aporteAnual = posicoes[i].aporteAnual * (1 + correcaoAnualAporteAnual);
       }
       posicoes.push(posicao);
     }
